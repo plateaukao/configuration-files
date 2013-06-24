@@ -1,0 +1,49 @@
+
+loadplugins '\.(js|penta)$'
+group user
+
+" vim: set ft=pentadactyl:
+
+" proxy settings
+
+" key mappings
+map -m n,v,i,c,t <C-a> <Pass>
+map -m n,v,i,c,t <C-c> <Pass>
+map -m i,c,t <C-v> <Pass>
+map -m i,c,t <C-x> <Pass>
+map -m i,c,t <C-z> <Pass>
+
+map -builtin j 5j
+map -builtin k 5k
+
+map -m=n H -builtin <count>gT
+map -m=n L -builtin <count>gt
+
+:command! hl set hlf!
+set hintkeys='asdfjklgheriop'
+set passkeys=www\.google\.com/reader/:jkovA
+
+map -modes=n,v U :set fullscreen<cr>;
+map -modes=n,v s :set nofullscreen<cr>;
+
+set maxitems=6
+
+command proxy -nargs=1 :set! network.proxy.type=<args>
+nmap up :proxy 1<CR>
+nmap np :proxy 0<CR>
+
+"change statusbar color
+highlight StatusLineNormal color:black; background: #f0f0f0 !important; font-size: 9pt; font-family: monospace; font-weight: 600; padding: 0px 3px;
+
+    "选中文字用t o打开google搜索,google的关键字设置为g{
+    "设置google为默认引擎，否则以下设置工作不正常
+        set defsearch=g
+        map t -js content.getSelection().toString()!=""?dactyl.execute(":tabopen "+ content.getSelection()):CommandExMode().open("tabopen ")
+        map o -js content.getSelection().toString()!=""?dactyl.execute(":open "+ content.getSelection()):CommandExMode().open("open ")
+    "结合dict插件翻译选中字符串
+        "map -a -ex s dict -e <arg>
+        map s -js content.getSelection().toString()!=""?dactyl.execute(":dict -e d "+ content.getSelection()):""
+    "google翻译
+        map sj -js content.getSelection().toString()!=""?dactyl.execute(":dict -e g "+ content.getSelection()):""
+    "qq
+        map sf -js content.getSelection().toString()!=""?dactyl.execute(":dict -e q "+ content.getSelection()):""
